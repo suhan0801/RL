@@ -13,8 +13,11 @@
 
 ###  Unity Reinforcement Learning
 - 使用 **Unity ML-Agents** 框架進行智能體訓練。
-- 目前專案因硬體設備限制（GPU 性能不足）尚未完成完整訓練。
-- 專案未來將使用 **DQN、Double DQN、PPO (Proximal Policy Optimization)** 等演算法控制 Unity 環境中的角色或物理物件。
+- 目前專案希望使用 **純視覺輸入（影像）** 作為狀態，搭配 **CNN + PPO** 演算法進行訓練。
+- 目前因硬體設備限制（GPU 計算能力不足）尚未完成完整訓練。
+- 專案未來目標：
+  - 訓練智能體直接從遊戲畫面中學習決策
+  - 探索 CNN 特徵抽取對 PPO 訓練穩定性與收斂速度的影響
 
 Q-table
 
@@ -63,19 +66,29 @@ Dueling DQN：將 state value 與 advantage 分開，提高學習效率
 
 Unity RL
 
-使用框架：Unity ML-Agents
+Unity RL (CNN + PPO)
 
-適用演算法：
+核心概念：
 
-DQN / Double DQN：適合離散動作空間
+PPO (Proximal Policy Optimization)：策略梯度演算法，適合連續或離散動作空間，穩定性高
 
-PPO (Proximal Policy Optimization)：適合連續動作空間，穩定性高
+CNN (Convolutional Neural Network)：從遊戲畫面（影像）抽取特徵，作為 PPO 的狀態輸入
 
-核心技術：
+技術細節：
 
-將 Unity 環境封裝成 Gym-like API
+將 Unity 畫面轉成灰階或 RGB 影像，進行 resize、normalize
 
-使用 Reward Shaping 設計適合的獎勵函數
+CNN 提取空間特徵後輸入策略網路 (Policy Network)
+
+搭配 Reward Shaping 設計適合的獎勵函數
+
+可使用 Curriculum Learning 漸進式提升環境難度
+
+現況：
+
+目前因硬體設備限制尚未完成完整訓練
+
+未來將補上 CNN + PPO 模型、訓練曲線與性能分析
 
 使用 Curriculum Learning 漸進式訓練環境難度
 
